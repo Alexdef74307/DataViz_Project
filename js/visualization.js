@@ -32,7 +32,7 @@ var player={};
     for (var i=0;i<data.length;i++){
       if (data[i].Winner == Object.keys(player)[a]){
        	result[Object.keys(player)[a]].push
-				({"Round": axis_x[j], "difference": data[i].LRank-rank, "status":"V", "opponent" 						:data[i].Loser});
+				({"Round": axis_x[j], "difference": data[i].LRank-rank, "status":"V", "opponent":data[i].Loser});
         j=j+1;
         k=i;
       }  
@@ -47,14 +47,14 @@ var player={};
          	if (data[l].Winner == player_inter){
 			//console.log("Winner" + " " +data[l].Winner)
            result[Object.keys(player)[a]].push
-					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent" 						:data[l].Winner});
+					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
         	j=j+1;
           k=l;
           break;
          	} else if (data[l].Loser == player_inter){
 			//console.log("Loser" + " " +data[l].Winner)
             result[Object.keys(player)[a]].push
-					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent" 						:data[l].Winner});
+					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
         	j=j+1;
           k=l;
           player_inter=data[l].Winner  
@@ -67,7 +67,7 @@ var player={};
       //for (var l=k;l<data.length;l++){
          	if (data[data.length-1].Loser == Object.keys(player)[a]){
            result[Object.keys(player)[a]].push
-					({"Round": axis_x[j], "difference": data[data.length-1].WRank-rank, "status":"L","opponent" 						:data[data.length-1].Winner});
+					({"Round": axis_x[j], "difference": data[data.length-1].WRank-rank, "status":"L","opponent":data[data.length-1].Winner});
         	j=j+1;
           
          	}  
@@ -79,7 +79,7 @@ var player={};
        if (data[l].Loser == player_inter){
 			//console.log("Loser" + " " +data[l].Winner)
             result[Object.keys(player)[a]].push
-					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent" 						:data[l].Winner});
+					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
         	j=j+1;
           k=l;
           player_inter=data[l].Winner  
@@ -113,11 +113,11 @@ var player={};
     
    var p=56; var donnees2=[];
    for(var d=0;d<128;d++) {
-   var tab_inter=[]
-	 for (var b=0;b<7;b++){
-	 tab_inter.push({"x":result[Object.keys(player)[d]][b].Round,"y":result[Object.keys(player)[d]][b].difference})
-     }
-    donnees2.push(tab_inter)
+		var tab_inter=[];
+		for (var b=0;b<7;b++){
+			tab_inter.push({"x":result[Object.keys(player)[d]][b].Round,"y":result[Object.keys(player)[d]][b].difference})
+		}
+		donnees2.push(tab_inter)
    }
     
     console.log(donnees2[1][0])
@@ -129,15 +129,15 @@ var player={};
     //Margin Convention
      var margin = {top: 20, right: 20, bottom: 30, left: 50},
          width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+         height = 500 - margin.top - margin.bottom;
     
     //create the SVG container	
-    var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    
+    var svg = d3.select(".content").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom)
+		.append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		
   
     
     //var groupe= svg.append("g")
@@ -149,29 +149,30 @@ var player={};
     var xAxis = d3.svg.axis().scale(x).orient("bottom");
     
     //y scale
-		var y = d3.scale.linear()
-							.range([height, 0]);
+	var y = d3.scale.linear().range([height, 0]);
+	
     //y.domain(d3.extent(donnees2, function(d) { return d.y; }));
+	
     y.domain([-300,300]);
     
     var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left");
+					.scale(y)
+					.orient("left");
     
     svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height/2 + ")")
-    .call(xAxis);
+		.attr("class", "x axis")
+		.attr("transform", "translate(0," + height/2 + ")")
+		.call(xAxis);
     
     svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis)
-    .append("text")
-    .attr("transform", "rotate(-90)")
-    .attr("y", 6)
-    .attr("dy", ".71em")
-    .style("text-anchor", "end")
-    .text("Rank diff");
+		.attr("class", "y axis")
+		.call(yAxis)
+		.append("text")
+		.attr("transform", "rotate(-90)")
+		.attr("y", 6)
+		.attr("dy", ".71em")
+		.style("text-anchor", "end")
+		.text("Rank diff");
     
     //svg.selectAll("path")
       // .data([donnees2])
@@ -187,16 +188,17 @@ var player={};
     //.attr("d", line);
     
     var line = d3.svg.line()
-    .x(function(d) { return x(d.x); })
-    .y(function(d) { return y(d.y); });	
+		.x(function(d) { return x(d.x); })
+		.y(function(d) { return y(d.y); });	
     
     for(var d=0;d<32;d++) {
-    svg.append("path")
-    .datum(donnees2[d])
-    .attr("class", "line")
-    .attr("d", line);
-    }
-    //svg.append("path")
+		svg.append("path")
+			.datum(donnees2[d])
+			.attr("class", "line")
+			.attr("d", line);
+	}
+	
+	//svg.append("path")
     //.datum(donnees2)
     //.attr("x", function(d) { return x(d.letter); })
     //.attr("y", function(d) { return y(d.frequency); })
