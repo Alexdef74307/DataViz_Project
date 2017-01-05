@@ -1,5 +1,8 @@
 var player={};
     var result={};
+	
+	var result_real ={};
+	var result_prev = {};
     var axis_x=["1st Rnd","2nd Rnd","3rd Rnd","4th Rnd","Quarter","Semi","Finals"];
     
     
@@ -41,7 +44,7 @@ var player={};
     for (var i=0;i<data.length;i++){
       if (data[i].Winner == Object.keys(player)[a]){
        	result[rank+ " "+Object.keys(player)[a]].push
-				({"Round": axis_x[j], "difference": data[i].LRank-rank, "status":"V", "opponent" 						:data[i].Loser});
+				({"Round": axis_x[j], "difference": data[i].LRank-rank, "status":"V", "opponent":data[i].Loser});
         j=j+1;
         k=i;
       }  
@@ -56,14 +59,14 @@ var player={};
          	if (data[l].Winner == player_inter){
 			//console.log("Winner" + " " +data[l].Winner)
            result[rank+ " "+Object.keys(player)[a]].push
-					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent" 						:data[l].Winner});
+					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
         	j=j+1;
           k=l;
           break;
          	} else if (data[l].Loser == player_inter){
 			//console.log("Loser" + " " +data[l].Winner)
             result[rank+ " "+Object.keys(player)[a]].push
-					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent" 						:data[l].Winner});
+					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
         	j=j+1;
           k=l;
           player_inter=data[l].Winner  
@@ -76,7 +79,7 @@ var player={};
       //for (var l=k;l<data.length;l++){
          	if (data[data.length-1].Loser == Object.keys(player)[a]){
            result[rank+ " "+Object.keys(player)[a]].push
-					({"Round": axis_x[j], "difference": data[data.length-1].WRank-rank, "status":"L","opponent" 						:data[data.length-1].Winner});
+					({"Round": axis_x[j], "difference": data[data.length-1].WRank-rank, "status":"L","opponent":data[data.length-1].Winner});
         	j=j+1;
           
          	}  
@@ -88,7 +91,7 @@ var player={};
        if (data[l].Loser == player_inter){
 			//console.log("Loser" + " " +data[l].Winner)
             result[rank+ " "+Object.keys(player)[a]].push
-					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent" 						:data[l].Winner});
+					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
         	j=j+1;
           k=l;
           player_inter=data[l].Winner  
@@ -101,14 +104,14 @@ var player={};
          	if (data[l].Winner == player_inter){
 			//console.log("Winner" + " " +data[l].Winner)
            result[rank+ " "+Object.keys(player)[a]].push
-					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent" 						:data[l].Winner});
+					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
         	j=j+1;
           k=l;
           break;
          	} else if (data[l].Loser == player_inter){
 			//console.log("Loser" + " " +data[l].Winner)
             result[rank+ " "+Object.keys(player)[a]].push
-					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent" 						:data[l].Winner});
+					({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
         	j=j+1;
           k=l;
           player_inter=data[l].Winner  
