@@ -18,12 +18,19 @@
 }
 
 
-.line {
+.line1 {
 	fill: none;
-	stroke: blue;
-	stroke-width: 1px;
+	stroke: steelblue;
+	stroke-width: 1.5px;
 	opacity: 0.35;
 }
+
+.line2 {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 0.5px;
+      stroke-dasharray: 10;
+}  
 
 .axis text{
 	font-weight: bold;

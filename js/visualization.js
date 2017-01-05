@@ -130,15 +130,30 @@ var player={};
     donnees3.push({"player" : a, "rank" : 126 , "result":[1,2]})
     //console.log(donnees3)
     
-   var p=56; var donnees2=[];
+	var p=56; var donnees2=[];
    for(var d=0;d<128;d++) {
-   var tab_inter=[]
-	 for (var b=0;b<7;b++){
-	 tab_inter.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference,"z":result[Object.keys(result)[d]][b].status})
-     }
-    donnees2.push({"player" : Object.keys(result)[d].split(" ")[1]+" "+Object.keys(result)[d].split(" ")[2] , "rank" : Object.keys(result)[d].split(" ")[0] , "result":tab_inter})
+   //d=2; 
+   var tab_reel=[];
+   var tab_prev=[]; 
+   var u=0;   
+	 for (var b=0;b<7;b++){ 
+   if(result[Object.keys(result)[d]][b].status == "V"){
+     //console.log("reel_1")
+	 tab_reel.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference})
    }
+   if(u>0 && result[Object.keys(result)[d]][b].status == "L"){
+     tab_prev.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
+   }
+   if(u==0 && result[Object.keys(result)[d]][b].status == "L"){
+     	 tab_reel.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
+       tab_prev.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
+     u=u+1;
+   }  
+   }  
     
+	  donnees2.push({"player" : Object.keys(result)[d].split(" ")[1]+" "+Object.keys(result)[d].split(" ")[2] , "rank" : Object.keys(result)[d].split(" ")[0] , "reel":tab_reel , "prev":tab_prev})
+   } 
+	
     //console.log(donnees2[4])
      var sort_by = function(field, reverse, primer){
 
@@ -228,10 +243,15 @@ var player={};
     .x(function(d) { return x(d.x); })
     .y(function(d) { return y(d.y); });	
     
-    for(var d=0;d<8;d++) {
+	for(var d=0;d<8;d++) {
     svg.append("path")
-    .datum(donnees2[d].result)
-    .attr("class", "line")
+    .datum(donnees2[d].reel)
+    .attr("class", "line1")
+    .attr("d", line);
+    
+    svg.append("path")
+    .datum(donnees2[d].prev)
+    .attr("class", "line2")
     .attr("d", line);
     }
     
