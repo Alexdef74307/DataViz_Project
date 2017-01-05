@@ -22,4 +22,10 @@
 	fill: none;
 	stroke: blue;
 	stroke-width: 2px;
+	opacity: 0.35;
+}
+
+.axis text{
+	font-weight: bold;
+	font-size: 12px;
 }

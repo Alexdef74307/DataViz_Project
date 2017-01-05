@@ -129,7 +129,7 @@ var player={};
     //Margin Convention
      var margin = {top: 20, right: 20, bottom: 30, left: 50},
          width = 960 - margin.left - margin.right,
-         height = 500 - margin.top - margin.bottom;
+         height = 700 - margin.top - margin.bottom;
     
     //create the SVG container	
     var svg = d3.select(".content").append("svg")
