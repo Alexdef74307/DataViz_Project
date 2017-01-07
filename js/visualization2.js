@@ -16,7 +16,7 @@ var tab_year=[];
 console.log(tab_year[10])	
 
 /* Variables containing the year and the tournament */    
-var year = tab_year[10];
+var year = tab_year[0];
 var tournament=tab_tournament[0];
 
 /* Initiatializing minimum and maximum rank in the tournament */
@@ -28,19 +28,22 @@ var numberOfPlayersDisplayed = 8;
 d3.csv("data/resultat_atp.csv", function(data) {
 	console.log("test1");
 	 // Choosing the right year and the Grand Slam in the data    
-      for (var i=0;i<data.length;i++){
+     for (var i=0;i<data.length;i++){
       if(data[i].Date.split("/")[2]==year){
-        var line_year=i;
-        break;
-      }
-    }
-    for (var i=line_year;i<line_year+508;i++){
-      if(data[i].Tournament==tournament){
-        var line_tour=i;
-        console.log(data[line_tour+126].Tournament);
-        break;
-      } 
-    }
+        if(data[i].Tournament==tournament){
+			var line_tour_debut=i;
+		   	break;
+		}
+	  }
+	}
+line_tour=line_tour_debut;	
+	for (var i=0;i<data.length;i++){
+      if(data[i].Date.split("/")[2]==year){
+        if(data[i].Tournament==tournament){
+			var line_tour_fin=i;
+		}
+	  }
+	} 
   
 	// Extract the name of the player and his ranking
 	var r=0;
@@ -121,7 +124,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 			}
 		}
 		else{
-			for (var l=k;l<line_tour+127;l++){
+			for (var l=line_tour;l<line_tour+127;l++){
 				if (data[l].Loser == player_inter){
 					result[rank+ " "+Object.keys(player)[a]].push
 							({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
