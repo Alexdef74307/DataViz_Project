@@ -50,8 +50,8 @@
 	font-size: 12px;
 }
 
-button {
-  position: absolute;
-  right: 30px;
-  top: 30px;
-} 
+.reset {
+	position: relative;
+	left: 90%;
+	bottom: 500px;
+}
