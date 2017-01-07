@@ -13,9 +13,10 @@ var tab_year=[];
     for(i=2000;i<2017;i++){
 	tab_year.push(i);
 	}
+console.log(tab_year[10])	
 
 /* Variables containing the year and the tournament */    
-var year = tab_year[0];
+var year = tab_year[9];
 var tournament=tab_tournament[1];
 
 /* Initiatializing minimum and maximum rank in the tournament */
@@ -25,10 +26,25 @@ var rankMax = 0;
 var numberOfPlayersDisplayed = 8;
 
 d3.csv("data/resultat_atp.csv", function(data) {
+	console.log("test1");
+	 // Choosing the right year and the Grand Slam in the data    
+      for (var i=0;i<data.length;i++){
+      if(data[i].Date.split("/")[2]==year){
+        var line_year=i;
+        break;
+      }
+    }
+    for (var i=line_year;i<line_year+508;i++){
+      if(data[i].Tournament==tournament){
+        var line_tour=i;
+        console.log(data[line_tour+126].Tournament);
+        break;
+      } 
+    }
   
 	// Extract the name of the player and his ranking
 	var r=0;
-	for (var i=0;i<data.length;i++){
+	for (var i=line_tour;i<line_tour+127;i++){
 		/* Registering winner name and rank */
 		if (isNaN(player[data[i].Winner]) && data[i].WRank !== "N/A"){
 			player[data[i].Winner]=data[i].WRank;
@@ -63,7 +79,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 
 		var rank=player[Object.keys(player)[a]];
 		result[rank+ " "+Object.keys(player)[a]] = [];
-		for (var i=0;i<data.length;i++){
+		for (var i=line_tour;i<line_tour+127;i++){
 			if (data[i].Winner == Object.keys(player)[a]){
 				result[rank+ " "+Object.keys(player)[a]].push
 						({"Round": axis_x[j], "difference": data[i].LRank-rank, "status":"V", "opponent":data[i].Loser});
@@ -76,7 +92,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 		if(j>0){
 			if (j<axis_x.length-1){
 				while (j<axis_x.length){
-					for (var l=k+1;l<data.length;l++){
+					for (var l=k+1;l<line_tour+127;l++){
 						if (data[l].Winner == player_inter){
 							result[rank+ " "+Object.keys(player)[a]].push
 									({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
@@ -97,15 +113,15 @@ d3.csv("data/resultat_atp.csv", function(data) {
 
 			} 
 			else if (j<axis_x.length){
-				if (data[data.length-1].Loser == Object.keys(player)[a]){
+				if (data[line_tour+127-1].Loser == Object.keys(player)[a]){
 					result[rank+ " "+Object.keys(player)[a]].push
-							({"Round": axis_x[j], "difference": data[data.length-1].WRank-rank, "status":"L","opponent":data[data.length-1].Winner});
+							({"Round": axis_x[j], "difference": data[line_tour+127-1].WRank-rank, "status":"L","opponent":data[line_tour+127-1].Winner});
 					j=j+1;
 				}  
 			}
 		}
 		else{
-			for (var l=k;l<data.length;l++){
+			for (var l=k;l<line_tour+127;l++){
 				if (data[l].Loser == player_inter){
 					result[rank+ " "+Object.keys(player)[a]].push
 							({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
@@ -116,7 +132,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 				}
 			}
 			while (j<axis_x.length){
-				for (var l=k+1;l<data.length;l++){
+				for (var l=k+1;l<line_tour+127;l++){
 					if (data[l].Winner == player_inter){
 						result[rank+ " "+Object.keys(player)[a]].push
 								({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
