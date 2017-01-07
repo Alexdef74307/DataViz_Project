@@ -16,8 +16,8 @@ var tab_year=[];
 console.log(tab_year[10])	
 
 /* Variables containing the year and the tournament */    
-var year = tab_year[9];
-var tournament=tab_tournament[1];
+var year = tab_year[10];
+var tournament=tab_tournament[0];
 
 /* Initiatializing minimum and maximum rank in the tournament */
 var rankMin = 10000;
