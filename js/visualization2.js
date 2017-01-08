@@ -355,6 +355,10 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	var chartBody = svg.append("g")
 		.attr("clip-path", "url(#clip)");    
 
+	var div = d3.select("body")
+	.append("div")  // declare the tooltip div 
+	.attr("class", "tooltip")              // apply the 'tooltip' class
+	.style("opacity", 0); 	
 	//*********************************   
 	//plot the grap   
 
@@ -372,7 +376,23 @@ d3.csv("data/resultat_atp.csv", function(data) {
 					else {
 					  return "#ccc";
 					}
+				})
+				.on("mouseover", function () {console.log("ok");m=d3.event;
+                                  div
+                                  .style("opacity", 1)
+                                  .html(donnees2[d].rank+" "+donnees2[d].player)
+                                  .style("left", (m.pageX) + "px")
+                                  .style("top", (m.pageY - 28) + "px");
+                                 d3.select(this).style("stroke", "red");d3.select(this).style("stroke-width",3);
+				})
+				.on("mouseout", function() {		
+								div.transition()		
+								.duration(500)		
+								.style("opacity", 0);
+								d3.select(this).style("stroke", "steelblue");d3.select(this).style("stroke-width",1.5); 
+								div.style("opacity", 0);
 				});
+				
 
 			chartBody.append("path")
 				.datum(donnees2[d].prev)
@@ -386,6 +406,8 @@ d3.csv("data/resultat_atp.csv", function(data) {
 					  return "#ccc";
 					}
 				});
+				
+				
 		}
 	};
 	
