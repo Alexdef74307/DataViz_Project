@@ -369,6 +369,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 				.datum(donnees2[d].reel)
 				.attr("class", "line1")
 				.attr("d", line)
+				.attr("player", d)
 				.style("stroke", function() {
 					if (donnees2[d].rank) {
 					  return color(donnees2[d].rank);
@@ -377,13 +378,15 @@ d3.csv("data/resultat_atp.csv", function(data) {
 					  return "#ccc";
 					}
 				})
-				.on("mouseover", function () {console.log("ok");m=d3.event;
-                                  div
-                                  .style("opacity", 1)
-                                  .html(donnees2[d].rank+" "+donnees2[d].player)
-                                  .style("left", (m.pageX) + "px")
-                                  .style("top", (m.pageY - 28) + "px");
-                                 d3.select(this).style("stroke", "red");d3.select(this).style("stroke-width",3);
+				.on("mouseover", function () {
+					console.log(this.getAttribute("player"));
+					m=d3.event;
+					div
+						.style("opacity", 1)
+						.html(donnees2[this.getAttribute("player")].rank+" "+donnees2[this.getAttribute("player")].player)
+						.style("left", (m.pageX) + "px")
+						.style("top", (m.pageY - 28) + "px");
+						d3.select(this).style("stroke", "red");d3.select(this).style("stroke-width",3);
 				})
 				.on("mouseout", function() {		
 								div.transition()		
