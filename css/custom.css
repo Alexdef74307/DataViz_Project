@@ -51,8 +51,15 @@
 }
 
 .reset {
+	float: right;
 	/*
 	position: relative;
 	left: 90%;
 	bottom: 500px;*/
+}
+
+.selector {
+	width: 25%;
+	float: left;
+	margin: 0 30px;
 }

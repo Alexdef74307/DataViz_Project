@@ -13,11 +13,14 @@ var tab_year=[];
     for(i=2000;i<2017;i++){
 	tab_year.push(i);
 	}
-console.log(tab_year[10])	
 
-/* Variables containing the year and the tournament */    
-var year = tab_year[0];
-var tournament=tab_tournament[0];
+/* Variables containing the year and the tournament */   
+var yearNumber = 10; 
+var year = tab_year[yearNumber];
+
+var tournamentNumber = 0;
+var tournament=tab_tournament[tournamentNumber];
+
 
 /* Initiatializing minimum and maximum rank in the tournament */
 var rankMin = 10000;
@@ -25,75 +28,118 @@ var rankMax = 0;
 
 var numberOfPlayersDisplayed = 8;
 
+var donnees2;
+
 d3.csv("data/resultat_atp.csv", function(data) {
-	console.log("test1");
-	 // Choosing the right year and the Grand Slam in the data    
-     for (var i=0;i<data.length;i++){
-      if(data[i].Date.split("/")[2]==year){
-        if(data[i].Tournament==tournament){
-			var line_tour_debut=i;
-		   	break;
+	 
+	 var getData = function() {
+		 // Choosing the right year and the Grand Slam in the data    
+		 for (var i=0;i<data.length;i++){
+		  if(data[i].Date.split("/")[2]==year){
+			if(data[i].Tournament==tournament){
+				var line_tour_debut=i;
+				break;
+			}
+		  }
 		}
-	  }
-	}
-line_tour=line_tour_debut;	
-	for (var i=0;i<data.length;i++){
-      if(data[i].Date.split("/")[2]==year){
-        if(data[i].Tournament==tournament){
-			var line_tour_fin=i;
-		}
-	  }
-	} 
-  
-	// Extract the name of the player and his ranking
-	var r=0;
-	for (var i=line_tour;i<line_tour+127;i++){
-		/* Registering winner name and rank */
-		if (isNaN(player[data[i].Winner]) && data[i].WRank !== "N/A"){
-			player[data[i].Winner]=data[i].WRank;
-		}
-		/* Case when winner rank is low and thus is registered as N/A */
-		if (isNaN(player[data[i].Winner]) && data[i].WRank == "N/A"){
-			/* Rank is registered as N/A if rank is too low (more than 1000)
-			We chose to register player starting from 700 in such cases */
-			player[data[i].Winner]=700+r;
-			data[i].WRank = 700+r;
-			/* Necessary because player could end up getting the same rank */
-			r=r+1;
-		}
-		/* Registering loser name and rank */
-		if (isNaN(player[data[i].Loser]) && data[i].LRank !== "N/A"){
-			player[data[i].Loser]=data[i].LRank;
-		}
-		/* Case when loser is too low and thus is registered as N/A*/ 
-		if (isNaN(player[data[i].Loser]) && data[i].LRank == "N/A"){
-			player[data[i].Loser]=700+r;
-			data[i].LRank = 700+r;
-			r=r+1;
-		}
-	}
-
-
-	for (var a=0;a<Object.keys(player).length;a++){
-
-		var j=0;
-		var k=0;
-		var m=0;
-
-		var rank=player[Object.keys(player)[a]];
-		result[rank+ " "+Object.keys(player)[a]] = [];
+		line_tour=line_tour_debut;	
+		for (var i=0;i<data.length;i++){
+		  if(data[i].Date.split("/")[2]==year){
+			if(data[i].Tournament==tournament){
+				var line_tour_fin=i;
+			}
+		  }
+		} 
+	  
+		// Extract the name of the player and his ranking
+		var r=0;
 		for (var i=line_tour;i<line_tour+127;i++){
-			if (data[i].Winner == Object.keys(player)[a]){
-				result[rank+ " "+Object.keys(player)[a]].push
-						({"Round": axis_x[j], "difference": data[i].LRank-rank, "status":"V", "opponent":data[i].Loser});
-				j=j+1;
-				k=i;
-			}  
+			/* Registering winner name and rank */
+			if (isNaN(player[data[i].Winner]) && data[i].WRank !== "N/A"){
+				player[data[i].Winner]=data[i].WRank;
+			}
+			/* Case when winner rank is low and thus is registered as N/A */
+			if (isNaN(player[data[i].Winner]) && data[i].WRank == "N/A"){
+				/* Rank is registered as N/A if rank is too low (more than 1000)
+				We chose to register player starting from 700 in such cases */
+				player[data[i].Winner]=700+r;
+				data[i].WRank = 700+r;
+				/* Necessary because player could end up getting the same rank */
+				r=r+1;
+			}
+			/* Registering loser name and rank */
+			if (isNaN(player[data[i].Loser]) && data[i].LRank !== "N/A"){
+				player[data[i].Loser]=data[i].LRank;
+			}
+			/* Case when loser is too low and thus is registered as N/A*/ 
+			if (isNaN(player[data[i].Loser]) && data[i].LRank == "N/A"){
+				player[data[i].Loser]=700+r;
+				data[i].LRank = 700+r;
+				r=r+1;
+			}
 		}
 
-		var player_inter=Object.keys(player)[a];
-		if(j>0){
-			if (j<axis_x.length-1){
+
+		for (var a=0;a<Object.keys(player).length;a++){
+
+			var j=0;
+			var k=0;
+			var m=0;
+
+			var rank=player[Object.keys(player)[a]];
+			result[rank+ " "+Object.keys(player)[a]] = [];
+			for (var i=line_tour;i<line_tour+127;i++){
+				if (data[i].Winner == Object.keys(player)[a]){
+					result[rank+ " "+Object.keys(player)[a]].push
+							({"Round": axis_x[j], "difference": data[i].LRank-rank, "status":"V", "opponent":data[i].Loser});
+					j=j+1;
+					k=i;
+				}  
+			}
+
+			var player_inter=Object.keys(player)[a];
+			if(j>0){
+				if (j<axis_x.length-1){
+					while (j<axis_x.length){
+						for (var l=k+1;l<line_tour+127;l++){
+							if (data[l].Winner == player_inter){
+								result[rank+ " "+Object.keys(player)[a]].push
+										({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
+								j=j+1;
+								k=l;
+								break;
+							} 
+							else if (data[l].Loser == player_inter){
+								result[rank+ " "+Object.keys(player)[a]].push
+										({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
+								j=j+1;
+								k=l;
+								player_inter=data[l].Winner  
+								break;  
+							}  
+						}    
+					}
+
+				} 
+				else if (j<axis_x.length){
+					if (data[line_tour+127-1].Loser == Object.keys(player)[a]){
+						result[rank+ " "+Object.keys(player)[a]].push
+								({"Round": axis_x[j], "difference": data[line_tour+127-1].WRank-rank, "status":"L","opponent":data[line_tour+127-1].Winner});
+						j=j+1;
+					}  
+				}
+			}
+			else{
+				for (var l=line_tour;l<line_tour+127;l++){
+					if (data[l].Loser == player_inter){
+						result[rank+ " "+Object.keys(player)[a]].push
+								({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
+						j=j+1;
+						k=l;
+						player_inter=data[l].Winner;
+						break;  
+					}
+				}
 				while (j<axis_x.length){
 					for (var l=k+1;l<line_tour+127;l++){
 						if (data[l].Winner == player_inter){
@@ -113,89 +159,79 @@ line_tour=line_tour_debut;
 						}  
 					}    
 				}
-
-			} 
-			else if (j<axis_x.length){
-				if (data[line_tour+127-1].Loser == Object.keys(player)[a]){
-					result[rank+ " "+Object.keys(player)[a]].push
-							({"Round": axis_x[j], "difference": data[line_tour+127-1].WRank-rank, "status":"L","opponent":data[line_tour+127-1].Winner});
-					j=j+1;
-				}  
 			}
 		}
-		else{
-			for (var l=line_tour;l<line_tour+127;l++){
-				if (data[l].Loser == player_inter){
-					result[rank+ " "+Object.keys(player)[a]].push
-							({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
-					j=j+1;
-					k=l;
-					player_inter=data[l].Winner;
-					break;  
+
+
+		var p=56; donnees2=[];
+		for(var d=0;d<128;d++) {
+			var tab_reel=[];
+			var tab_prev=[]; 
+			var u=0;   
+			for (var b=0;b<7;b++){ 
+				if(result[Object.keys(result)[d]][b].status == "V"){
+					tab_reel.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference})
 				}
-			}
-			while (j<axis_x.length){
-				for (var l=k+1;l<line_tour+127;l++){
-					if (data[l].Winner == player_inter){
-						result[rank+ " "+Object.keys(player)[a]].push
-								({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
-						j=j+1;
-						k=l;
-						break;
-					} 
-					else if (data[l].Loser == player_inter){
-						result[rank+ " "+Object.keys(player)[a]].push
-								({"Round": axis_x[j], "difference": data[l].WRank-rank, "status":"L","opponent":data[l].Winner});
-						j=j+1;
-						k=l;
-						player_inter=data[l].Winner  
-						break;  
-					}  
-				}    
-			}
-		}
-	}
-
-
-	var donnees3=[];
-	donnees3.push({"player" : a, "rank" : 126 , "result":[1,2]})
-
-	var p=56; var donnees2=[];
-	for(var d=0;d<128;d++) {
-		var tab_reel=[];
-		var tab_prev=[]; 
-		var u=0;   
-		for (var b=0;b<7;b++){ 
-			if(result[Object.keys(result)[d]][b].status == "V"){
-				tab_reel.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference})
-			}
-			if(u>0 && result[Object.keys(result)[d]][b].status == "L"){
-				tab_prev.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
-			}
-			if(u==0 && result[Object.keys(result)[d]][b].status == "L"){
-				tab_reel.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
-				tab_prev.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
-				u=u+1;
+				if(u>0 && result[Object.keys(result)[d]][b].status == "L"){
+					tab_prev.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
+				}
+				if(u==0 && result[Object.keys(result)[d]][b].status == "L"){
+					tab_reel.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
+					tab_prev.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
+					u=u+1;
+				}  
 			}  
-		}  
 
-		donnees2.push({"player" : Object.keys(result)[d].split(" ")[1]+" "+Object.keys(result)[d].split(" ")[2] , "rank" : Object.keys(result)[d].split(" ")[0] , "reel":tab_reel , "prev":tab_prev})
-	} 
+			donnees2.push({"player" : Object.keys(result)[d].split(" ")[1]+" "+Object.keys(result)[d].split(" ")[2] , "rank" : Object.keys(result)[d].split(" ")[0] , "reel":tab_reel , "prev":tab_prev})
+		} 
 
-	var sort_by = function(field, reverse, primer){
-		var key = function (x) {return primer ? primer(x[field]) : x[field]};
-		return function (a,b) {
-			var A = key(a), B = key(b);
-			return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
+		var sort_by = function(field, reverse, primer){
+			var key = function (x) {return primer ? primer(x[field]) : x[field]};
+			return function (a,b) {
+				var A = key(a), B = key(b);
+				return ((A < B) ? -1 : (A > B) ? +1 : 0) * [-1,1][+!!reverse];                  
+			}
 		}
-	}
-	 
-	donnees2.sort(sort_by('rank', true, parseInt)); 
-	function sortByRank(key1, key2){
-		return key1.rank > key2.rank;
-	}
+		 
+		donnees2.sort(sort_by('rank', true, parseInt)); 
+		function sortByRank(key1, key2){
+			return key1.rank > key2.rank;
+		}
+	};
 	
+	
+	getData();
 	getExtremeRanks(donnees2);
+	
+	// --------------------------------------------------------------------------------
+	
+	d3.select("#year_selector")
+	.attr("min", 0)
+	.attr("max", tab_year.length - 1)
+	.attr("value", 0)
+	.on("input", function() {
+		update(this.value, tournamentNumber, numberOfPlayersDisplayed); 
+	});
+	
+	
+	d3.select("#tournament_selector")
+	.on("input", function() {
+		update(yearNumber, this.value, numberOfPlayersDisplayed);
+	});
+	
+	d3.select(".players p")
+	.text("Select numbers of players you wish to display(max : " + donnees2.length + ")");
+	
+	d3.select("#number_players")
+	.attr("min", 1)
+	.attr("max", donnees2.length)
+	.attr("step", 1)
+	.attr("value", 8)
+	.on("input", function() {
+		update(yearNumber, tournamentNumber, this.value);
+	});
+	
+	// --------------------------------------------------------------------------------
 
 	// Graphics
 	//Margin Convention
@@ -251,6 +287,8 @@ line_tour=line_tour_debut;
 		.append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 		.call(zoom);
+
+		
 
 	svg.append("rect")
 		.attr("width", width)
@@ -320,35 +358,38 @@ line_tour=line_tour_debut;
 	//*********************************   
 	//plot the grap   
 
-	for(var d=0;d<numberOfPlayersDisplayed;d++) {
-		//d=0;
-		chartBody.append("path")
-			.datum(donnees2[d].reel)
-			.attr("class", "line1")
-			.attr("d", line)
-			.style("stroke", function() {
-				if (donnees2[d].rank) {
-				  return color(donnees2[d].rank);
-				}
-				else {
-				  return "#ccc";
-				}
-			});
+	var plotGraph = function() {
+		for(var d=0;d<numberOfPlayersDisplayed;d++) {
+			//d=0;
+			chartBody.append("path")
+				.datum(donnees2[d].reel)
+				.attr("class", "line1")
+				.attr("d", line)
+				.style("stroke", function() {
+					if (donnees2[d].rank) {
+					  return color(donnees2[d].rank);
+					}
+					else {
+					  return "#ccc";
+					}
+				});
 
-		chartBody.append("path")
-			.datum(donnees2[d].prev)
-			.attr("class", "line2")
-			.attr("d", line)
-			.style("stroke", function() {
-				if (donnees2[d].rank) {
-				  return color(donnees2[d].rank);
-				}
-				else {
-				  return "#ccc";
-				}
-			});
-	}
-
+			chartBody.append("path")
+				.datum(donnees2[d].prev)
+				.attr("class", "line2")
+				.attr("d", line)
+				.style("stroke", function() {
+					if (donnees2[d].rank) {
+					  return color(donnees2[d].rank);
+					}
+					else {
+					  return "#ccc";
+					}
+				});
+		}
+	};
+	
+	plotGraph();
 	//*****************************   
 	//define functions
 
@@ -391,19 +432,48 @@ line_tour=line_tour_debut;
 			};
 		});
 	}
+	
+	
+
+
+	var update = function(yearSelected, tournamentSelected, numberPlayerSelected) {
+		// Updating global variables
+		yearNumber = yearSelected;
+		year = tab_year[yearSelected];
+		
+		tournamentNumber = tournamentSelected;
+		tournament = tab_tournament[tournamentSelected];
+		
+		numberOfPlayersDisplayed = numberPlayerSelected;
+
+		d3.selectAll("path").remove();
+		
+		donnees2 = [];
+		console.log("C'est là");
+		getData();
+		console.log("ou là");
+		rankMin = 10000;
+		rankMax = 0;
+		getExtremeRanks(donnees2);
+		console.log("on sait pas trop");
+		color.domain([rankMin, rankMax]);
+		plotGraph();
+	}	
+	
 });
 
 var getExtremeRanks = function(data) {
-	for (var i = 0; i<numberOfPlayersDisplayed; i ++) {
-		var rank = parseInt(data[i].rank);
-		if (rank < rankMin) {
-			rankMin = rank;
-		}
-		else if (rank > rankMax) {
-			rankMax = rank;
-			
+		for (var i = 0; i<numberOfPlayersDisplayed; i ++) {
+			var rank = parseInt(data[i].rank);
+			if (rank < rankMin) {
+				rankMin = rank;
+			}
+			else if (rank > rankMax) {
+				rankMax = rank;
+				
+			}
 		}
 	}
-	
-	
-}
+
+
+
