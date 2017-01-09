@@ -235,7 +235,8 @@ d3.csv("data/resultat_atp.csv", function(data) {
 		}
     console.log(tournament+" "+year)
     console.log(wrank +" "+winner +" beat "  +frank+" "+ finalist)
-		
+		d3.select(".graph_title").text(tournament+" "+year);
+		d3.select(".graph_winner").text(winner +" at rank "+ wrank + " beat "+ finalist+ " at rank " + frank);
 	};
 	
 	
@@ -513,13 +514,10 @@ d3.csv("data/resultat_atp.csv", function(data) {
 		d3.selectAll("path").remove();
 		
 		donnees2 = [];
-		//console.log("C'est là");
 		getData();
-		//console.log("ou là");
 		rankMin = 10000;
 		rankMax = 0;
 		getExtremeRanks(donnees2);
-		//console.log("on sait pas trop");
 		color.domain([rankMin, rankMax]);
 		plotGraph();
 	}	
