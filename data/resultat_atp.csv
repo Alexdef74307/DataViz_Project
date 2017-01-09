@@ -2051,7 +2051,7 @@ ATP,Location,Tournament,Date,Series,Court,Surface,Round,Best of,Winner,Loser,WRa
 6,Melbourne,Australian Open,16/01/2012,Grand Slam,Outdoor,Hard,1st Round,5,Falla A.,Fognini F.,71,47,696,915,6,3,6,2,3,6,6,1,,,3,1,Completed,1,38,2,87,1,4,2,85,1,4,2,75,1,5,2,8,1,4,2,75,1,5,3,1,42,2,76,
 6,Melbourne,Australian Open,16/01/2012,Grand Slam,Outdoor,Hard,1st Round,5,Haas T.,Kudla D.,190,276,257,171,7,6,3,6,6,0,7,5,,,3,1,Completed,1,36,3,1,4,2,85,1,36,3,1,43,3,1,1,36,2,88,1,44,3,2,1,39,2,9,,
 6,Melbourne,Australian Open,16/01/2012,Grand Slam,Outdoor,Hard,1st Round,5,Dimitrov G.,Chardy J.,78,82,666,652,4,6,6,3,3,6,6,4,6,4,3,2,Completed,1,5,2,5,1,5,2,5,1,57,2,25,1,6,2,52,1,53,2,38,1,6,2,65,1,54,2,43
-6,Melbourne,Australian Open,16/01/2012,Grand Slam,Outdoor,Hard,1st Round,5,Darcis S.,Serra F.,85,156,634,324,7,6,6,3,4,5,,,,,2,0,Retired,2,5,1,5,2,4,1,55,2,25,1,57,2,58,1,57,2,2,1,67,2,65,1,71,2,42,1,54
+6,Melbourne,Australian Open,16/01/2012,Grand Slam,Outdoor,Hard,1st Round,5,Serra F.,Darcis S.,156,85,634,324,7,6,6,3,4,5,,,,,2,0,Retired,2,5,1,5,2,4,1,55,2,25,1,57,2,58,1,57,2,2,1,67,2,65,1,71,2,42,1,54
 6,Melbourne,Australian Open,16/01/2012,Grand Slam,Outdoor,Hard,1st Round,5,Young D.,Gojowczyk P.,42,248,1004,192,6,1,6,2,4,6,1,6,6,2,3,2,Completed,1,53,2,37,1,55,2,4,1,57,2,25,1,6,2,52,1,62,2,2,1,7,2,65,1,57,2,34
 6,Melbourne,Australian Open,16/01/2012,Grand Slam,Outdoor,Hard,1st Round,5,Lacko L.,Ljubicic I.,119,30,491,1270,3,6,4,6,6,3,6,4,6,4,3,2,Completed,1,66,2,1,1,85,1,9,1,83,1,83,1,7,2,29,1,73,2,2,2,29,1,8,1,96,,
 6,Melbourne,Australian Open,16/01/2012,Grand Slam,Outdoor,Hard,1st Round,5,Dolgopolov O.,Jones G.,13,198,2030,245,1,6,4,6,6,1,6,1,6,2,3,2,Completed,1,4,13,1,5,9,1,5,9,1,5,13,1,5,8,1,7,13,1,5,9,78,,,,,,
@@ -5022,7 +5022,7 @@ ATP,Location,Tournament,Date,Series,Court,Surface,Round,Best of,Winner,Loser,WRa
 51,New York,US Open,30/08/2007,Grand Slam,Outdoor,Hard,2nd Round,5,Verdasco F.,Simon G.,34,41,860,790,6,0,6,4,6,3,,,,,3,0,Completed,1,53,2,37,1,65,2,2,1,67,2,12,1,699,2,33,1,6,2,28,,,,,,,,
 51,New York,US Open,30/08/2007,Grand Slam,Outdoor,Hard,2nd Round,5,Berdych T.,Bolelli S.,9,87,1925,478,7,5,6,3,6,3,,,,,3,0,Completed,1,7,7,5,1,8,8,5,1,1,6,75,1,12,8,55,1,8,7,4,,,,,,,,
 51,New York,US Open,30/08/2007,Grand Slam,Outdoor,Hard,2nd Round,5,Lee H.T.,Canas G.,43,14,726,1648,7,5,7,5,6,3,,,,,3,0,Completed,3,39,1,3,3,4,1,3,3,46,1,28,4,1,303,3,33,1,31,,,,,,,,,
-51,New York,US Open,30/08/2007,Grand Slam,Outdoor,Hard,2nd Round,5,Gasquet R.,Young D.,13,223,1740,183,0,0,,,,,,,,,0,0,Walkover,1,8,7,1,1,6,5,1,17,4,67,1,147,7,2,1,13,5,5,,,,,,,,,
+51,New York,US Open,30/08/2007,Grand Slam,Outdoor,Hard,2nd Round,5,Young D.,Gasquet R.,223,13,1740,183,0,0,,,,,,,,,0,0,Walkover,1,8,7,1,1,6,5,1,17,4,67,1,147,7,2,1,13,5,5,,,,,,,,,
 51,New York,US Open,30/08/2007,Grand Slam,Outdoor,Hard,2nd Round,5,Lopez F.,Andreev I.,60,39,586,810,6,7,7,5,3,6,6,4,7,6,3,2,Completed,1,66,2,1,1,65,2,2,1,7,2,1,1,763,2,21,1,74,2,4,,,,,,,,
 51,New York,US Open,30/08/2007,Grand Slam,Outdoor,Hard,2nd Round,5,Grosjean S.,Mirnyi M.,78,106,516,398,6,4,6,7,6,4,6,3,,,3,1,Completed,1,66,2,1,1,6,2,3,1,6,2,3,1,658,2,42,1,7,2,1,,,,,,,,
 51,New York,US Open,30/08/2007,Grand Slam,Outdoor,Hard,2nd Round,5,Roddick A.,Acasuso J.,5,70,2990,540,4,6,6,1,6,2,,,,,2,1,Retired,1,6,8,1,6,8,5,1,5,7,75,1,74,11,5,1,5,9,5,,,,,,,,,
@@ -6835,7 +6835,7 @@ ATP,Location,Tournament,Date,Series,Court,Surface,Round,Best of,Winner,Loser,WRa
 31,Paris,French Open,30/05/2003,Grand Slam,Outdoor,Clay,3rd Round,5,Saretta F.,Blanco G.,78,139,7,6,6,3,2,2,,,,,2,0,Retired,1,533,2,375,1,55,2,4,1,45,2,2,,,,,,,,,,,,,,,,,,
 31,Paris,French Open,30/05/2003,Grand Slam,Outdoor,Clay,3rd Round,5,Moya C.,Chela J.I.,4,35,6,2,6,3,3,6,2,6,6,3,3,2,Completed,1,2,4,333,1,2,4,2,1,2,3,3,1,167,4,5,,,,,,,,,,,,,,
 31,Paris,French Open,31/05/2003,Grand Slam,Outdoor,Clay,3rd Round,5,Gonzalez F.,Schalken S.,20,13,7,6,6,3,3,1,,,,,2,0,Retired,1,571,2,25,1,52,2,5,1,5,2,1,1,444,2,625,,,,,,,,,,,,,,
-31,Paris,French Open,31/05/2003,Grand Slam,Outdoor,Clay,3rd Round,5,Costa A.,Lapentti G.,9,203,4,6,4,6,6,3,6,4,6,4,3,2,Completed,1,4,2,75,1,5,2,55,1,45,2,2,1,444,2,625,,,,,,,,,,,,,,
+31,Paris,French Open,31/05/2003,Grand Slam,Outdoor,Clay,3rd Round,5,Costa A.,Lapentti N.,9,58,4,6,4,6,6,3,6,4,6,4,3,2,Completed,1,4,2,75,1,5,2,55,1,45,2,2,1,444,2,625,,,,,,,,,,,,,,
 31,Paris,French Open,31/05/2003,Grand Slam,Outdoor,Clay,3rd Round,5,Clement A.,Coutelot N.,36,208,6,4,6,3,6,2,,,,,3,0,Completed,1,4,2,75,1,42,2,8,1,3,2,7,1,444,2,625,,,,,,,,,,,,,,
 31,Paris,French Open,31/05/2003,Grand Slam,Outdoor,Clay,3rd Round,5,Nieminen J.,Hanescu V.,34,122,6,7,6,4,6,2,3,6,6,3,3,2,Completed,1,4,2,75,1,5,2,55,1,45,2,2,1,444,2,625,,,,,,,,,,,,,,
 31,Paris,French Open,31/05/2003,Grand Slam,Outdoor,Clay,3rd Round,5,Robredo T.,Hewitt L.,31,1,4,6,1,6,6,3,6,2,6,3,3,2,Completed,3,25,1,333,3,25,1,33,3,1,25,3,1,333,,,,,,,,,,,,,,,,

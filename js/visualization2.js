@@ -38,7 +38,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 		 var result={};
 		 // Choosing the right year and the Grand Slam in the data    
 		 for (var i=0;i<data.length;i++){
-			 //console.log(i+" "+"year");
+			
 		  if(data[i].Date.split("/")[2]==year){
 			if(data[i].Tournament==tournament){
 				var line_tour_debut=i;
@@ -49,14 +49,14 @@ d3.csv("data/resultat_atp.csv", function(data) {
 		line_tour=line_tour_debut;	
 		for (var i=0;i<data.length;i++){
 		  if(data[i].Date.split("/")[2]==year){
-			  //console.log(i+" "+"tournament")
+			  
 			if(data[i].Tournament==tournament){
 				var line_tour_fin=i;
 			}
 		  }
 		} 
 	    
-		//console.log("after 2 boucles" +" "+line_tour)
+		
 		// Extract the name of the player and his ranking
 		var r=0;
 		for (var i=line_tour;i<line_tour+127;i++){
@@ -85,9 +85,10 @@ d3.csv("data/resultat_atp.csv", function(data) {
 			}
 		}
 
-        //console.log("after player")
+        
 		for (var a=0;a<Object.keys(player).length;a++){
-            console.log(Object.keys(player).length)
+            
+			
 			var j=0;
 			var k=0;
 			var m=0;
@@ -102,7 +103,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 					k=i;
 				}  
 			}
-            //console.log("after boucle for")
+            
 			var player_inter=Object.keys(player)[a];
 			if(j>0){
 				if (j<axis_x.length-1){
@@ -167,7 +168,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 				}
 			}
 		}
-        //console.log("after result")
+        
 
 		var p=56; donnees2=[];
 		for(var d=0;d<128;d++) {
