@@ -177,19 +177,29 @@ d3.csv("data/resultat_atp.csv", function(data) {
 			var u=0;   
 			for (var b=0;b<7;b++){ 
 				if(result[Object.keys(result)[d]][b].status == "V"){
-					tab_reel.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference})
+					tab_reel.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference,"z":result[Object.keys(result)[d]][b].status})
 				}
 				if(u>0 && result[Object.keys(result)[d]][b].status == "L"){
-					tab_prev.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
+					tab_prev.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference,"z":result[Object.keys(result)[d]][b].status});
 				}
 				if(u==0 && result[Object.keys(result)[d]][b].status == "L"){
 					tab_reel.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
 					tab_prev.push({"x":result[Object.keys(result)[d]][b].Round,"y":result[Object.keys(result)[d]][b].difference});
 					u=u+1;
 				}  
-			}  
-
-			donnees2.push({"player" : Object.keys(result)[d].split(" ")[1]+" "+Object.keys(result)[d].split(" ")[2] , "rank" : Object.keys(result)[d].split(" ")[0] , "reel":tab_reel , "prev":tab_prev})
+			}
+			
+			//Computation of the performance of the player
+            if(tab_reel.length<axis_x.length){
+				var perf=axis_x[tab_reel.length-1];  
+			}else if(tab_reel.length=axis_x.length){
+				if(tab_reel[axis_x.length-1].z== "V"){
+					var perf="Winner";
+				} else{
+					var perf=axis_x[tab_reel.length-1];
+				}  
+			}
+			donnees2.push({"player" : Object.keys(result)[d].split(" ")[1]+" "+Object.keys(result)[d].split(" ")[2] , "rank" : Object.keys(result)[d].split(" ")[0] , "reel":tab_reel , "prev":tab_prev,"perf":perf})
 		} 
 
 		var sort_by = function(field, reverse, primer){
@@ -204,6 +214,28 @@ d3.csv("data/resultat_atp.csv", function(data) {
 		function sortByRank(key1, key2){
 			return key1.rank > key2.rank;
 		}
+		//finding of the winner and the finalist
+		var winner;
+		var finalist;
+		var wrank;
+		var frank;
+		for (var d=0;d<128;d++){
+			if(donnees2[d].perf=="Winner"){
+				winner=donnees2[d].player;
+				wrank=donnees2[d].rank;
+				break;
+			}
+		}
+		for (var d=0;d<128;d++){
+			if(donnees2[d].perf=="Finals"){
+				finalist=donnees2[d].player;
+				frank=donnees2[d].rank;
+			break;
+			}
+		}
+    console.log(tournament+" "+year)
+    console.log(wrank +" "+winner +" beat "  +frank+" "+ finalist)
+		
 	};
 	
 	
