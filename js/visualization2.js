@@ -30,6 +30,8 @@ var numberOfPlayersDisplayed = 8;
 
 var donnees2;
 
+var minimumRanking = 1;
+
 d3.csv("data/resultat_atp.csv", function(data) {
 	 
 	 var getData = function() {
@@ -262,6 +264,16 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	d3.select(".players p")
 	.text("Select numbers of players you wish to display(max : " + donnees2.length + ")");
 	
+	d3.select("#min_ranking")
+	.attr("min", 1)
+	.attr("max", donnees2[numberOfPlayersDisplayed].rank)
+	.attr("step", 1)
+	.attr("value", 1)
+	.on("input", function() {
+		minimumRanking = this.value;
+		update(yearNumber, tournamentNumber, numberOfPlayersDisplayed);
+	});
+	
 	d3.select("#number_players")
 	.attr("min", 1)
 	.attr("max", donnees2.length)
@@ -403,7 +415,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	//plot the grap   
 
 	var plotGraph = function() {
-		for(var d=3;d<numberOfPlayersDisplayed;d++) {
+		for(var d=(minimumRanking-1);d<numberOfPlayersDisplayed;d++) {
 			//d=0;
 			chartBody.append("path")
 				.datum(donnees2[d].reel)
@@ -434,13 +446,13 @@ d3.csv("data/resultat_atp.csv", function(data) {
 								.style("opacity", 0);
 								d3.select(this).style("stroke", function() {
 									if (donnees2[d].rank) {
-									  return color(donnees2[d].rank);
+									  return color(donnees2[this.getAttribute("player")].rank);
 									}
 									else {
 									  return "#ccc";
 									}
 								})
-								.style("stroke-width",1.5); 
+								.style("stroke-width",2); 
 								div.style("opacity", 0);
 				});
 				
