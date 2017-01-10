@@ -236,7 +236,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
     console.log(tournament+" "+year)
     console.log(wrank +" "+winner +" beat "  +frank+" "+ finalist)
 		d3.select(".graph_title").text(tournament+" "+year);
-		d3.select(".graph_winner").text(winner +" at rank "+ wrank + " beat "+ finalist+ " at rank " + frank);
+		d3.select(".graph_winner").text(winner + " at rank "+ wrank + " beat "+ finalist+ " at rank " + frank);
 	};
 	
 	
@@ -403,7 +403,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	//plot the grap   
 
 	var plotGraph = function() {
-		for(var d=0;d<numberOfPlayersDisplayed;d++) {
+		for(var d=3;d<numberOfPlayersDisplayed;d++) {
 			//d=0;
 			chartBody.append("path")
 				.datum(donnees2[d].reel)
@@ -432,7 +432,15 @@ d3.csv("data/resultat_atp.csv", function(data) {
 								div.transition()		
 								.duration(500)		
 								.style("opacity", 0);
-								d3.select(this).style("stroke", "steelblue");d3.select(this).style("stroke-width",1.5); 
+								d3.select(this).style("stroke", function() {
+									if (donnees2[d].rank) {
+									  return color(donnees2[d].rank);
+									}
+									else {
+									  return "#ccc";
+									}
+								})
+								.style("stroke-width",1.5); 
 								div.style("opacity", 0);
 				});
 				
