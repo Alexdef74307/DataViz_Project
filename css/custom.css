@@ -101,4 +101,5 @@ div.tooltip {
 
 .content {
 	padding-top: 40px;
+	box-shadow: 0 50px 50px #000;
 }
