@@ -42,29 +42,31 @@
 		
 		<button class="btn reset">Reset</button>
 		
-		<div class="selector year">
-			<p>Select year</p>
-			<input id="year_selector" type="range" step="1" />
-		</div>
-		
-		<div class="selector tournament">
-			<p>Select Grand Slam tournament</p>
-			<select name="tournament_selector" id="tournament_selector">
-				<option value="0">Australian Open</option>
-				<option value="1">French Open</option>
-				<option value="2">Wimbledon</option>
-				<option value="3">US Open</option>
-			</select>
-		</div>
-		
-		<div class="selector min_players">
-			<p>Select minimum ranking of players you wish to display</p>
-			<input type="number" id="min_ranking">
-		</div>
-		
-		<div class="selector players">
-			<p>Select maximum ranking of players you wish to display</p>
-			<input type="number" id="number_players">
+		<div class = "selectors">
+			<div class="selector year">
+				<p>Select year</p>
+				<input id="year_selector" type="range" step="1" />
+			</div>
+			
+			<div class="selector tournament">
+				<p>Select Grand Slam tournament</p>
+				<select name="tournament_selector" id="tournament_selector">
+					<option value="0">Australian Open</option>
+					<option value="1">French Open</option>
+					<option value="2">Wimbledon</option>
+					<option value="3">US Open</option>
+				</select>
+			</div>
+			
+			<div class="selector min_players">
+				<p>Select minimum ranking of players you wish to display</p>
+				<input type="number" id="min_ranking">
+			</div>
+			
+			<div class="selector players">
+				<p>Select maximum ranking of players you wish to display</p>
+				<input type="number" id="number_players">
+			</div>
 		</div>
 		<h2 class="graph_title"></h2>
 		<h4 class="graph_winner"></h3>
