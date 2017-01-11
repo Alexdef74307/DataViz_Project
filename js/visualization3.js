@@ -33,7 +33,7 @@ var donnees2;
 var minimumRanking = 1;
 var tab_performance=[];
 
-var num_player=maximumRanking-minimumRanking+1;
+var num_player=8;
 
 d3.csv("data/resultat_atp.csv", function(data) {
 	 
@@ -88,8 +88,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 				r=r+1;
 			}
 		}
-
-        
+		
 		for (var a=0;a<Object.keys(player).length;a++){
             
 			
@@ -238,10 +237,19 @@ d3.csv("data/resultat_atp.csv", function(data) {
 			}
 		}
 
+		console.log(donnees2);
+		
    tab_performance=[];
    var round=[0,0,0,0,0,0,0];
     //var axis_x=["1st Rnd","2nd Rnd","3rd Rnd","4th Rnd","Quarter","Semi","Finals"]
-   for (var d=minimumRanking-1;d<maximumRanking;d++){
+	
+	var d = 0;
+	num_player = 0;
+	while (parseInt(donnees2[d].rank) < minimumRanking) {
+		d++;
+	}
+	
+   while (parseInt(donnees2[d].rank) < maximumRanking) {
      if (donnees2[d].perf=="1st Rnd"){
        round[0]=round[0]+1;
      }else if(donnees2[d].perf=="2nd Rnd"){
@@ -278,8 +286,12 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	   round[1]++;
 	   round[0]++;
      }
+	 d++;
+	 num_player++;
+	 
    }
-   console.log(round);
+   console.log("been there " + num_player);
+   
 	if (maximumRanking-minimumRanking>-1){
 		for (var i=0;i<7;i++){
 			tab_performance.push({"round":axis_x[i],"percentage":100*(round[i]/(Math.pow(2, 7-i))),"number":round[i]});
@@ -312,7 +324,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	});
 	
 	d3.select(".players p")
-	.text("Select numbers of players you wish to display(max : " + donnees2.length + ")");
+	.text("Select maximum ranking of players displayed(max : " + donnees2.length + ")");
 	
 	d3.select("#min_ranking")
 	.attr("min", 1)
@@ -331,6 +343,8 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	.attr("value", 8)
 	.on("input", function() {
 		update(yearNumber, tournamentNumber, this.value);
+		d3.select("#min_ranking")
+			.attr("max", this.value);
 	});
 	
 	// --------------------------------------------------------------------------------
@@ -465,8 +479,21 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	//plot the grap   
 
 	var plotGraph = function() {
-		for(var d=(minimumRanking-1);d<maximumRanking;d++) {
+		
+		for (var i = 0; i < maximumRanking; i++) {
+			console.log("Rang: " + donnees2[i].rank);
+		}
+		
+		var d = 0;
+		while (parseInt(donnees2[d].rank) < minimumRanking) {
+			console.log("d :" + d);
+			console.log("rank :" + donnees2[d].rank);
+			d++;
+		}
+		while (parseInt(donnees2[d].rank) <= maximumRanking) {
 			//d=0;
+			console.log("d :" + d);
+			console.log("rank :" + donnees2[d].rank);
 			chartBody.append("path")
 				.datum(donnees2[d].reel)
 				.attr("class", "line1")
@@ -517,20 +544,21 @@ d3.csv("data/resultat_atp.csv", function(data) {
 					else {
 					  return "#ccc";
 					}
-				});
+			});
 				
-				
+			d++;
 		}
 		
-		svg2.selectAll("bar").remove()
+		svg2.selectAll("bar")
 			.data(tab_performance)
 			.enter()
 			.append("rect")
 			.style("fill", "steelblue")
+			.attr("class", "bar_chart")
 			.attr("x", function(d) { return x2(d.round); })
 			.attr("width", x2.rangeBand())
 			.attr("y", function(d) { return y2(d.percentage); })
-			.attr("height", function(d) { return height - y2(d.percentage); })
+			.attr("height", function(d) { console.log(d.percentage); return height - y2(d.percentage); })
 			.on("mouseover", function (d) {m=d3.event;
 									  div
 									  .style("opacity", 1)
@@ -656,16 +684,15 @@ d3.csv("data/resultat_atp.csv", function(data) {
 
 		d3.selectAll(".line1").remove();
 		d3.selectAll(".line2").remove();
-		d3.selectAll("bar").remove();
+		d3.selectAll(".bar_chart").remove();
 		
 		donnees2 = [];
 		getData();
 		rankMin = 10000;
 		rankMax = 0;
 		
-		num_player = maximumRanking - minimumRanking +1;
 		getExtremeRanks(donnees2);
-		color.domain([rankMin, rankMax]);
+		color.domain([minimumRanking, rankMax]);
 		plotGraph();
 	}	
 	
