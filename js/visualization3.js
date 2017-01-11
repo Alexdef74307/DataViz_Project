@@ -654,7 +654,8 @@ d3.csv("data/resultat_atp.csv", function(data) {
 		
 		maximumRanking = numberPlayerSelected;
 
-		d3.selectAll("path").remove();
+		d3.selectAll(".line1").remove();
+		d3.selectAll(".line2").remove();
 		d3.selectAll("bar").remove();
 		
 		donnees2 = [];
