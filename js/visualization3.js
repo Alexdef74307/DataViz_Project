@@ -374,7 +374,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	  "rgb(239,237,245)",
 	  "rgb(252,251,253)"]);
 			
-	color.domain([rankMin, rankMax]);
+	color.domain([minimumRanking, rankMax]);
 
 	//Range of xaxis
 	var x = d3.scale.ordinal().rangePoints([0, width]);
