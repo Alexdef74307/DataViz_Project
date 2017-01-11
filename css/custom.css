@@ -4,8 +4,18 @@
 
 .jumbotron {
 	padding: 10px 0 !important;
+	margin-bottom: 0 !important;
+	height: 145px;
 }
 
+.header_details {
+	float: right;
+	width : 30%;
+}
+
+.header_titles {
+	float: left;
+}
 .plot {
     fill: rgba(250, 250, 255, 0.6);
 }
@@ -77,6 +87,18 @@ div.tooltip {
     			
 }
 
+.container{
+	background-color: #fff;
+}
+
 .body {
 	position: initial;
+	background-image: url("http://www.sz0931.com/data/out/86/52722376-tennis-wallpaper.jpg");
+	background-attachment: fixed;
+	background-size: 100%;
+	background-position: 20%;
+}
+
+.content {
+	padding-top: 40px;
 }
