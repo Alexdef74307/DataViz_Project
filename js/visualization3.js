@@ -26,12 +26,14 @@ var tournament=tab_tournament[tournamentNumber];
 var rankMin = 10000;
 var rankMax = 0;
 
-var numberOfPlayersDisplayed = 8;
+var maximumRanking = 8;
 
 var donnees2;
 
 var minimumRanking = 1;
 var tab_performance=[];
+
+var num_player=maximumRanking-minimumRanking+1;
 
 d3.csv("data/resultat_atp.csv", function(data) {
 	 
@@ -239,33 +241,54 @@ d3.csv("data/resultat_atp.csv", function(data) {
    tab_performance=[];
    var round=[0,0,0,0,0,0,0];
     //var axis_x=["1st Rnd","2nd Rnd","3rd Rnd","4th Rnd","Quarter","Semi","Finals"]
-   for (var d=minimumRanking-1;d<numberOfPlayersDisplayed;d++){
+   for (var d=minimumRanking-1;d<maximumRanking;d++){
      if (donnees2[d].perf=="1st Rnd"){
        round[0]=round[0]+1;
      }else if(donnees2[d].perf=="2nd Rnd"){
        round[1]=round[1]+1;
+	   round[0]++;
      }else if(donnees2[d].perf=="3rd Rnd"){
        round[2]=round[2]+1;
+	   round[1]++;
+	   round[0]++;
      }else if(donnees2[d].perf=="4th Rnd"){
        round[3]=round[3]+1;
+	   round[2]++;
+	   round[1]++;
+	   round[0]++;
      }else if(donnees2[d].perf=="Quarter"){
        round[4]=round[4]+1;
+	   round[3]++;
+	   round[2]++;
+	   round[1]++;
+	   round[0]++;
      }else if(donnees2[d].perf=="Semi"){
        round[5]=round[5]+1;
+	   round[4]++;
+	   round[3]++;
+	   round[2]++;
+	   round[1]++;
+	   round[0]++;
      }else{
        round[6]=round[6]+1;
+	   round[5]++;
+	   round[4]++;
+	   round[3]++;
+	   round[2]++;
+	   round[1]++;
+	   round[0]++;
      }
    }
-	if (numberOfPlayersDisplayed-minimumRanking>-1){
+   console.log(round);
+	if (maximumRanking-minimumRanking>-1){
 		for (var i=0;i<7;i++){
-			tab_performance.push({"round":axis_x[i],"percentage":100*(round[i]/(numberOfPlayersDisplayed+1-minimumRanking)),"number":round[i]});
+			tab_performance.push({"round":axis_x[i],"percentage":100*(round[i]/(Math.pow(2, 7-i))),"number":round[i]});
 		}
 		
 	}
 	d3.select(".graph_title").text(tournament+" "+year);
 	d3.select(".graph_winner").text(winner + " at rank "+ wrank + " beat "+ finalist+ " at rank " + frank);
 
-	console.log(tab_performance);
 	};
 	
 	
@@ -279,13 +302,13 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	.attr("max", tab_year.length - 1)
 	.attr("value", 0)
 	.on("input", function() {
-		update(this.value, tournamentNumber, numberOfPlayersDisplayed); 
+		update(this.value, tournamentNumber, maximumRanking); 
 	});
 	
 	
 	d3.select("#tournament_selector")
 	.on("input", function() {
-		update(yearNumber, this.value, numberOfPlayersDisplayed);
+		update(yearNumber, this.value, maximumRanking);
 	});
 	
 	d3.select(".players p")
@@ -293,12 +316,12 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	
 	d3.select("#min_ranking")
 	.attr("min", 1)
-	.attr("max", donnees2[numberOfPlayersDisplayed].rank)
+	.attr("max", donnees2[maximumRanking].rank)
 	.attr("step", 1)
 	.attr("value", 1)
 	.on("input", function() {
 		minimumRanking = this.value;
-		update(yearNumber, tournamentNumber, numberOfPlayersDisplayed);
+		update(yearNumber, tournamentNumber, maximumRanking);
 	});
 	
 	d3.select("#number_players")
@@ -442,7 +465,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	//plot the grap   
 
 	var plotGraph = function() {
-		for(var d=(minimumRanking-1);d<numberOfPlayersDisplayed;d++) {
+		for(var d=(minimumRanking-1);d<maximumRanking;d++) {
 			//d=0;
 			chartBody.append("path")
 				.datum(donnees2[d].reel)
@@ -499,7 +522,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 				
 		}
 		
-		svg2.selectAll("bar")
+		svg2.selectAll("bar").remove()
 			.data(tab_performance)
 			.enter()
 			.append("rect")
@@ -520,9 +543,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 		var select=svg.selectAll(".line_sel")
 			.on("mouseover", function () {d3.select(this).style("stroke", "red");d3.select(this).style("stroke-width",3);})
 			.on("mouseout", function () {d3.select(this).style("stroke", "steelblue");d3.select(this).style("stroke-width",0.5);});
-			
-		console.log(select);
-    
+			    
 	};
 	
 	//*************************************
@@ -631,14 +652,17 @@ d3.csv("data/resultat_atp.csv", function(data) {
 		tournamentNumber = tournamentSelected;
 		tournament = tab_tournament[tournamentSelected];
 		
-		numberOfPlayersDisplayed = numberPlayerSelected;
+		maximumRanking = numberPlayerSelected;
 
 		d3.selectAll("path").remove();
+		d3.selectAll("bar").remove();
 		
 		donnees2 = [];
 		getData();
 		rankMin = 10000;
 		rankMax = 0;
+		
+		num_player = maximumRanking - minimumRanking +1;
 		getExtremeRanks(donnees2);
 		color.domain([rankMin, rankMax]);
 		plotGraph();
@@ -647,7 +671,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 });
 
 var getExtremeRanks = function(data) {
-		for (var i = 0; i<numberOfPlayersDisplayed; i ++) {
+		for (var i = 0; i<maximumRanking; i ++) {
 			var rank = parseInt(data[i].rank);
 			if (rank < rankMin) {
 				rankMin = rank;
