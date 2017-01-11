@@ -364,9 +364,15 @@ d3.csv("data/resultat_atp.csv", function(data) {
 			"rgb(49,163,84)", 
 			"rgb(0,109,44)"]);*/
 			
-	var color = d3.scale.linear()
-      .interpolate(d3.interpolateHcl)
-      .range([d3.rgb("#756bb1"), d3.rgb("#efedf5")]);
+	var color = d3.scale.quantize()
+      .range(["rgb(74,20,134)",
+	  "rgb(106,81,163)",
+	  "rgb(128,125,186)",
+	  "rgb(158,154,200)",
+	  "rgb(188,189,220)",
+	  "rgb(218,218,235)",
+	  "rgb(239,237,245)",
+	  "rgb(252,251,253)"]);
 			
 	color.domain([rankMin, rankMax]);
 
@@ -496,7 +502,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 			console.log("rank :" + donnees2[d].rank);
 			chartBody.append("path")
 				.datum(donnees2[d].reel)
-				.attr("class", "line1")
+				.attr("class", "line1 " + donnees2[d].rank)
 				.attr("d", line)
 				.attr("player", d)
 				.style("stroke", function() {
@@ -515,6 +521,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 						.style("left", (m.pageX) + "px")
 						.style("top", (m.pageY - 28) + "px");
 						d3.select(this).style("stroke", "red");d3.select(this).style("stroke-width",3);
+						
 				})
 				.on("mouseout", function() {		
 								div.transition()		
@@ -531,11 +538,10 @@ d3.csv("data/resultat_atp.csv", function(data) {
 								.style("stroke-width",2); 
 								div.style("opacity", 0);
 				});
-				
 
 			chartBody.append("path")
 				.datum(donnees2[d].prev)
-				.attr("class", "line2")
+				.attr("class", "line2 " + donnees2[d].rank)
 				.attr("d", line)
 				.style("stroke", function() {
 					if (donnees2[d].rank) {
@@ -571,6 +577,40 @@ d3.csv("data/resultat_atp.csv", function(data) {
 		var select=svg.selectAll(".line_sel")
 			.on("mouseover", function () {d3.select(this).style("stroke", "red");d3.select(this).style("stroke-width",3);})
 			.on("mouseout", function () {d3.select(this).style("stroke", "steelblue");d3.select(this).style("stroke-width",0.5);});
+			
+			
+		displayingLegend = function() {
+			// Select legend elements already present in the DOM
+			var legend = svg.selectAll(".legend").data(color.range())
+			// Removing these elements to create the new adapted legend
+			legend.remove();
+
+			// Creating new legend elements
+			legend = svg.selectAll(".legend")
+			.data(color.range())
+			.enter().append("g")
+			.attr("class", "legend")
+			.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+			// Adding rectangles filled with corresponding color
+			legend.append("rect")
+					.attr("x", width - 36)
+					.attr("width", 36)
+					.attr("height", 18)
+					.style("fill", function(d) { return d;});
+
+			// Adding corresponding text
+			legend.append("text")
+				.attr("x", width - 40)
+				.attr("y", 9)
+				.attr("dy", ".35em")
+				.style("text-anchor", "end")
+				.text(function(d) { 
+							return "rank ["+(color.invertExtent(d)).map(function( num ){
+								return parseInt( num, 10 ) })
+							+"]"
+				});
+		}
 			    
 	};
 	
@@ -630,6 +670,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
     
 	
 	plotGraph();
+	displayingLegend();
 	//*****************************   
 	//define functions
 
@@ -696,6 +737,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 		getExtremeRanks(donnees2);
 		color.domain([minimumRanking, rankMax]);
 		plotGraph();
+		displayingLegend();
 	}	
 	
 });
