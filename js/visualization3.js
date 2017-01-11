@@ -324,7 +324,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	});
 	
 	d3.select(".players p")
-	.text("Select maximum ranking of players displayed(max : " + donnees2.length + ")");
+	.text("Select maximum ranking of players displayed(max : " + donnees2[donnees2.length-1].rank + ")");
 	
 	d3.select("#min_ranking")
 	.attr("min", 1)
