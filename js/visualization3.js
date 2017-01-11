@@ -352,7 +352,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	// Graphics
 	//Margin Convention
 	 var margin = {top: 20, right: 20, bottom: 30, left: 50},
-		width = 960/1.7 - margin.left - margin.right,
+		width = 960/1.3 - margin.left - margin.right,
 		height = 500 - margin.top - margin.bottom;
 		
 	
@@ -578,7 +578,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
     
     // tracé du graph  
      var margin2 = {top: 20, right: 20, bottom: 30, left: 50},
-         width2 = 960/1.8 - margin2.left - margin2.right,
+         width2 = 960/2.5 - margin2.left - margin2.right,
          height = 500 - margin2.top - margin2.bottom;
     
      var x2 = d3.scale.ordinal().rangeRoundBands([0, width2], .05);
@@ -609,9 +609,11 @@ d3.csv("data/resultat_atp.csv", function(data) {
       .call(xAxis2)
     .selectAll("text")
       .style("text-anchor", "end")
-      .attr("dx", "1.5em")
-      .attr("dy", ".9em")
-      //.attr("transform", "rotate(-90)" );
+      .attr("dx", ".8em")
+      .attr("dy", ".55em")
+      //.attr("transform", "rotate(-90)" )
+	  .attr("transform", "rotate(-20)" )
+	  .style("font-size", "12px"); 
     
     svg2.append("g")
       .attr("class", "y axis")
