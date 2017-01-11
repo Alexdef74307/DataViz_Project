@@ -374,7 +374,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	  "rgb(239,237,245)",
 	  "rgb(252,251,253)"]);
 			
-	color.domain([minimumRanking, rankMax]);
+	color.domain([minimumRanking , rankMax]);
 
 	//Range of xaxis
 	var x = d3.scale.ordinal().rangePoints([0, width]);
@@ -517,9 +517,12 @@ d3.csv("data/resultat_atp.csv", function(data) {
 					m=d3.event;
 					div
 						.style("opacity", 1)
-						.html(donnees2[this.getAttribute("player")].rank+" "+donnees2[this.getAttribute("player")].player)
+						.html("Rank " + donnees2[this.getAttribute("player")].rank+" - "+donnees2[this.getAttribute("player")].player)
 						.style("left", (m.pageX) + "px")
-						.style("top", (m.pageY - 28) + "px");
+						.style("top", (m.pageY - 28) + "px")
+						.style("height", "auto")
+						.style("width", "auto")
+						.style("padding", "10px");
 						d3.select(this).style("stroke", "red");d3.select(this).style("stroke-width",3);
 						
 				})
@@ -568,9 +571,12 @@ d3.csv("data/resultat_atp.csv", function(data) {
 			.on("mouseover", function (d) {m=d3.event;
 									  div
 									  .style("opacity", 1)
-									  .html(d.number+"/"+num_player)
+									  .html(d.number+" players still qualified / "+num_player+ " players selected")
 									  .style("left", (m.pageX) + "px")
-									  .style("top", (m.pageY - 28) + "px");})
+									  .style("top", (m.pageY - 28) + "px")
+									  .style("height", "auto")
+									  .style("width", "auto")
+									  .style("padding", "10px");})
 			.on("mouseout", function (d) {div.style("opacity", 0);});
     
     
