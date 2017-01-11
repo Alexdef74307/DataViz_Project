@@ -76,3 +76,7 @@ div.tooltip {
     border-radius: 8px;			
     			
 }
+
+.body {
+	position: initial;
+}

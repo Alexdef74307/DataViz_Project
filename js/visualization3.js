@@ -550,7 +550,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
     
     // tracé du graph  
      var margin2 = {top: 20, right: 20, bottom: 30, left: 50},
-         width2 = 960/2.5 - margin2.left - margin2.right,
+         width2 = 960/1.8 - margin2.left - margin2.right,
          height = 500 - margin2.top - margin2.bottom;
     
      var x2 = d3.scale.ordinal().rangeRoundBands([0, width2], .05);
