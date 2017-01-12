@@ -69,7 +69,7 @@
 }
 
 .selector {
-	width: 18%;
+	width: 18.36%;
 	float: left;
 	margin: 0 30px;
 }
@@ -104,3 +104,8 @@ div.tooltip {
 	box-shadow: 0 50px 50px #000;
 	min-height: 1000px;
 }
+
+.titles {
+	float: left;
+	width : 100%;
+} 

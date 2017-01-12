@@ -371,8 +371,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 	  "rgb(158,154,200)",
 	  "rgb(188,189,220)",
 	  "rgb(218,218,235)",
-	  "rgb(239,237,245)",
-	  "rgb(252,251,253)"]);
+	  "rgb(239,237,245)"]);
 			
 	color.domain([minimumRanking , rankMax]);
 
@@ -598,9 +597,10 @@ d3.csv("data/resultat_atp.csv", function(data) {
 			.attr("y", function(d) { return y2(d.percentage); })
 			.attr("height", function(d) { console.log(d.percentage); return height - y2(d.percentage); })
 			.on("mouseover", function (d) {m=d3.event;
+									var num = num_player + 1;
 									  div
 									  .style("opacity", 1)
-									  .html(d.number+" players still qualified / "+num_player+ " players selected")
+									  .html(d.number+" players still qualified / "+num+ " players selected")
 									  .style("left", (m.pageX) + "px")
 									  .style("top", (m.pageY - 28) + "px")
 									  .style("height", "auto")
