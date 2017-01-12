@@ -599,6 +599,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 			.on("mouseover", function (d) {m=d3.event;
 									var num = num_player + 1;
 									var num2 = d.number +1;
+									d3.select(this).style("fill", "red");
 									  div
 									  .style("opacity", 1)
 									  .html(num2+" players still qualified / "+num+ " players selected")
@@ -607,7 +608,10 @@ d3.csv("data/resultat_atp.csv", function(data) {
 									  .style("height", "auto")
 									  .style("width", "auto")
 									  .style("padding", "10px");})
-			.on("mouseout", function (d) {div.style("opacity", 0);});
+			.on("mouseout", function (d) {
+				div.style("opacity", 0);
+				d3.select(this).style("fill", "steelblue");
+			});
     
     
 		var select=svg.selectAll(".line_sel")
