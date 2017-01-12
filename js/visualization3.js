@@ -546,6 +546,7 @@ d3.csv("data/resultat_atp.csv", function(data) {
 				.datum(donnees2[d].prev)
 				.attr("class", "line2 " + donnees2[d].rank)
 				.attr("d", line)
+				.attr("player", d)
 				.style("stroke", function() {
 					if (donnees2[d].rank) {
 					  return color(donnees2[d].rank);
@@ -553,7 +554,35 @@ d3.csv("data/resultat_atp.csv", function(data) {
 					else {
 					  return "#ccc";
 					}
-			});
+				})
+				.on("mouseover", function () {
+					m=d3.event;
+					div
+						.style("opacity", 1)
+						.html("Rank " + donnees2[this.getAttribute("player")].rank+" - "+donnees2[this.getAttribute("player")].player)
+						.style("left", (m.pageX) + "px")
+						.style("top", (m.pageY - 28) + "px")
+						.style("height", "auto")
+						.style("width", "auto")
+						.style("padding", "10px");
+						d3.select(this).style("stroke", "red");d3.select(this).style("stroke-width",3);
+						
+				})
+				.on("mouseout", function() {		
+								div.transition()		
+								.duration(500)		
+								.style("opacity", 0);
+								d3.select(this).style("stroke", function() {
+									if (donnees2[d].rank) {
+									  return color(donnees2[this.getAttribute("player")].rank);
+									}
+									else {
+									  return "#ccc";
+									}
+								})
+								.style("stroke-width",2); 
+								div.style("opacity", 0);
+				});
 				
 			d++;
 		}
