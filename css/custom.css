@@ -108,4 +108,8 @@ div.tooltip {
 .titles {
 	float: left;
 	width : 100%;
+}
+
+.graph_winner {
+	font-weight: bold;
 } 
