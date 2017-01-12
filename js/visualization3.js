@@ -598,11 +598,10 @@ d3.csv("data/resultat_atp.csv", function(data) {
 			.attr("height", function(d) { console.log(d.percentage); return height - y2(d.percentage); })
 			.on("mouseover", function (d) {m=d3.event;
 									var num = num_player + 1;
-									var num2 = d.number +1;
 									d3.select(this).style("fill", "red");
 									  div
 									  .style("opacity", 1)
-									  .html(num2+" players still qualified / "+num+ " players selected")
+									  .html(d.number+" players still qualified / "+num+ " players selected")
 									  .style("left", (m.pageX) + "px")
 									  .style("top", (m.pageY - 28) + "px")
 									  .style("height", "auto")
